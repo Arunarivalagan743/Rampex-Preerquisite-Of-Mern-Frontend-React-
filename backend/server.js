@@ -2,8 +2,10 @@ const express=require('express');
 const mongoose =require('mongoose');
 const dotenv=require('dotenv')
 const app=express();
+const  cors =  require('cors');
 app.use(express.json());
 dotenv.config()
+app.use(cors());
 mongoose.connect(process.env.MONGO)
 .then(()=>{console.log("mongodb on sucessfull")})
 .catch((err)=>{console.log("mongodb on unsucess",err)})
