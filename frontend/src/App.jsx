@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { Route, Routes } from "react-router";
 import Profile from "./components/Profile/Profile";
 import State from "./hooks/State";
@@ -11,11 +11,17 @@ import Child from "./components/Child";
 import Navbar from "./components/Navbar/Navbar";
 import ProductDetails from "./components/ProductsDetails/ProductDetails";
 import Products from "./components/Products/Products";
+import Reducer from "./hooks/Reducer";
+
+export const userContext = createContext()
 
 const App = () => {
+  const userData = { user: "arun" };
+  
   return (
     <>
    <Navbar />
+   <userContext.Provider value={userData}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
@@ -26,11 +32,13 @@ const App = () => {
          <Route path="/products" element={<Products />} />
            <Route path="/state" element={<State />} />
           <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/reducer" element={<Reducer />} />
         <Route
           path="/profile"
-          element={<Profile ame="arun" skills={["html", "css"]} />}
+          element={<Profile skills={["html", "css"]} />}
         />
       </Routes>
+      </userContext.Provider>
     </>
   );
 };
