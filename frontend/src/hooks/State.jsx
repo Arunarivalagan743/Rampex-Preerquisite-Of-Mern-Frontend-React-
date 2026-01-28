@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const State = () => {
     const[count,Setcount] =  useState(0);
     const [like,SetLike] = useState(0);
+     useEffect(() => {
+    console.log("count updated:", count);
+  }, [count]);
+
+  useEffect(() => {
+    console.log("like updated:", like);
+  }, [like]);
   return (
     <div>
       <div>{count}</div>

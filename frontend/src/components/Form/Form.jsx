@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 function Form() {
-  const [form, SetForm] = useState({
+  const [form, setForm] = useState({
     name: "",
     roll: "",
     department: "CSE",
     section: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    SetForm((prev) => ({
+    setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(form);
@@ -23,102 +25,63 @@ function Form() {
   useEffect(() => {
     const savedData = localStorage.getItem("formData");
     if (savedData) {
-      SetForm(JSON.parse(savedData));
+      setForm(JSON.parse(savedData));
     }
+    console.log(form)
   }, []);
+useEffect(() => {
+  console.log("Form updated:", form);
+}, [form]);
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={form.name}
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="roll">Roll no</label>
-        <input
-          type="number"
-          name="roll"
-          id="roll"
-          value={form.roll}
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="department">Department</label>
-        <select
-          name="department"
-          id="department"
-          value={form.department}
-          onChange={handleChange}
-        >
-          <option value="CSE">CSE</option>
-          <option value="ECE">ECE</option>
-          <option value="IT">IT</option>
-        </select>
-        <br />
+    <form onSubmit={onSubmit}>
+      <label>Name</label>
+      <input name="name" value={form.name} onChange={handleChange} />
 
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              name="section"
-              value="A"
-              checked={form.section === "A"}
-              onChange={handleChange}
-            />{" "}
-            A
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="section"
-              value="B"
-              checked={form.section === "B"}
-              onChange={handleChange}
-            />{" "}
-            B
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="section"
-              value="C"
-              checked={form.section === "C"}
-              onChange={handleChange}
-            />{" "}
-            C
-          </label>
-        </div>
-        <br />
-        <input
-          type="text"
-          name="section"
-          id="section"
-          value={form.section}
-          onChange={handleChange}
-        />
-        <br />
-        <button type="submit">Submit</button>
-        <br />
-        <button
-          type="submit"
-          onClick={() => {
-            localStorage.removeItem("formData");
-            SetForm({
-              name: "",
-              roll: "",
-              department: "CSE",
-              section: "",
-            });
-          }}
-        >
-          clear
-        </button>
-      </form>
-    </div>
+      <br />
+
+      <label>Roll No</label>
+      <input name="roll" value={form.roll} onChange={handleChange} />
+
+      <br />
+
+      <label>Department</label>
+      <select
+        name="department"
+        value={form.department}
+        onChange={handleChange}
+      >
+        <option value="CSE">CSE</option>
+        <option value="ECE">ECE</option>
+        <option value="IT">IT</option>
+      </select>
+
+      <br />
+
+      <label>Section</label>
+      <div>
+        <input type="radio" name="section" value="A" onChange={handleChange} checked={form.section === "A"} /> A
+        <input type="radio" name="section" value="B" onChange={handleChange} checked={form.section === "B"} /> B
+        <input type="radio" name="section" value="C" onChange={handleChange} checked={form.section === "C"} /> C
+      </div>
+
+      <br />
+
+      <button type="submit">Submit</button>
+      <button
+        type="button"
+        onClick={() => {
+          localStorage.removeItem("formData");
+          setForm({
+            name: "",
+            roll: "",
+            department: "CSE",
+            section: "",
+          });
+        }}
+      >
+        Clear
+      </button>
+    </form>
   );
 }
 

@@ -7,11 +7,12 @@ function Navbar() {
       <nav>
         <Link to={"/"}>Home</Link>
         <Link to={"/form"}>Form</Link> 
-        <Link to={"/child"}>Child</Link>
+     
         <Link to={"/products"}>Products</Link>
         <Link to={"/profile"}>Profile</Link>
-        <Link to={"/parent"}>Parent</Link>
+   
         <Link to={"/about"}>About</Link>
+             <Link to={"/state"}>State</Link>
         <Link to={"/contact"}>Contact</Link>
       </nav>
     </div>
